@@ -1,0 +1,18 @@
+# https://cdn.usdigital.com/assets/datasheets/E4T_datasheet.pdf
+velocityUpdateIntervalNs: 20000000 # 2e7
+leftPinA: 6
+leftPinB: 5
+rightPinA: 13
+rightPinB: 19
+ticksPerRevolution: 3000 # by spec 2k, by experimentation 3k
+wheelDiameterMm: 120 # 361 # 0.115 * pi = 0.36128285
+wheelAxisMm: 210 # 285 # from wheel to wheel (middle)
+rate: 15 # 20
+wheel_speeds_topic: wheel_speeds
+lwheel_topic: lwheel
+rwheel_topic: rwheel
+publish_velocities: False # True
+publish_rwheel: True
+publish_lwheel: True
+velocitiy_frame: odom
+
