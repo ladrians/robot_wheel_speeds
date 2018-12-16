@@ -19,3 +19,13 @@ Tested with ROS Indigo and Kinetic.
 ```
 
 Check the `wheel_params.yaml` file to tune your robot.
+
+## Troubleshooting
+
+When building, an error detailing that the `WheelVelocities.h` is missing may appear.
+Compile first this package and then the whole workspace.
+
+
+```
+catkin_make --pkg robot_wheel_speeds
+```
