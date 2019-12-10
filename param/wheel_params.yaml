@@ -1,9 +1,9 @@
 # https://cdn.usdigital.com/assets/datasheets/E4T_datasheet.pdf
 velocityUpdateIntervalNs: 20000000 # 2e7
-leftPinA: 6
-leftPinB: 5
-rightPinA: 19
-rightPinB: 13
+leftPinA: 6 #output A : LEFT (green)
+leftPinB: 5 #output B : LEFT (yellow)
+rightPinA: 19 #output A : RIGHT (green)
+rightPinB: 13 #output B : RIGHT (yellow)
 ticksPerRevolution: 3000 # by spec 2k, by experimentation 3k
 wheelDiameterMm: 120 # 361 # 0.115 * pi = 0.36128285
 wheelAxisMm: 210 # 285 # from wheel to wheel (middle)

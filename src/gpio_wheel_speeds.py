@@ -101,6 +101,8 @@ class WheelEncoders:
 
         r = rospy.Rate(self.rate)
         while not rospy.is_shutdown():
+            self.lticks = 0
+            self.rticks = 0            
             self.update()
             r.sleep()
        
@@ -113,41 +115,38 @@ class WheelEncoders:
             elapsed = elapsed.to_sec()
 
             try:
-                #while True:
 				self.lValueA = GPIO.input(self.leftPinA) 
 				self.lValueB = GPIO.input(self.leftPinB)
-				if (self.prev_lpinA != self.lValueA):
-				#if (self.prev_lpinA == GPIO.LOW and self.lValueA == GPIO.HIGH): # rising edge
-					self.lticks += 1
-					if self.lValueB == GPIO.HIGH:
-						self.ldirection = 1
-					else:
-						self.ldirection = -1
-					self.lelapsed_sticks += int(self.lticks) * self.ldirection
-				self.prev_lpinA = self.lValueA
+				if (self.lValueA == GPIO.HIGH):
+					if (self.lValueB == GPIO.LOW):
+                        self.lticks += 1
+                    else:
+                        self.lticks -= 1
+                else:
+                    if (self.lValueB == GPIO.LOW):
+                        self.lticks -= 1
+                    else:
+                        self.lticks += 1
 
 				self.rValueA = GPIO.input(self.rightPinA) 
 				self.rValueB = GPIO.input(self.rightPinB) 
-				if (self.prev_rpinA != self.rValueA): # rising edge
-				#if (self.prev_rpinA == GPIO.LOW and self.rValueA == GPIO.HIGH): # rising edge
-					self.rticks += 1
-					if self.rValueB == GPIO.HIGH:
-						self.rdirection = 1
-					else:
-						self.rdirection = -1
-					self.relapsed_sticks += int(self.rticks) * self.rdirection    
-				self.prev_rpinA = self.rValueA
+				if (self.rValueA == GPIO.HIGH):
+					if (self.rValueB == GPIO.LOW):
+                        self.rticks += 1
+                    else:
+                        self.rticks -= 1
+                else:
+                    if (self.rValueB == GPIO.LOW):
+                        self.rticks -= 1
+                    else:
+                        self.rticks += 1
             except:
                 GPIO.cleanup()                       
 
             print(self.lticks,self.rticks,self.lelapsed_sticks,self.relapsed_sticks)
-            self.lwheelPub.publish(self.lelapsed_sticks)
-            self.rwheelPub.publish(self.relapsed_sticks)
-            self.lticks = 0
-            self.rticks = 0
-            #self.lelapsed_sticks = 0
-            #self.relapsed_sticks = 0
-            
+            self.lwheelPub.publish(self.lsticks)
+            self.rwheelPub.publish(self.rsticks)
+           
 
 if __name__ == '__main__':
     """ main """
